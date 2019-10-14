@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package user;
 
-service Say {
+service UserService {
     rpc Authenticate(User) returns (TokenInfo) {}
     rpc ValidateToken(TokenInfo) returns (TokenInfo) {}
 }

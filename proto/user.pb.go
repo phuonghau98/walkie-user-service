@@ -128,7 +128,7 @@ func init() {
 func init() { proto.RegisterFile("proto/user.proto", fileDescriptor_d570e3e37e5899c5) }
 
 var fileDescriptor_d570e3e37e5899c5 = []byte{
-	// 185 bytes of a gzipped FileDescriptorProto
+	// 191 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x28, 0x28, 0xca, 0x2f,
 	0xc9, 0xd7, 0x2f, 0x2d, 0x4e, 0x2d, 0xd2, 0x03, 0x33, 0x85, 0x58, 0x40, 0x6c, 0x25, 0x3b, 0x2e,
 	0x96, 0xd0, 0xe2, 0xd4, 0x22, 0x21, 0x29, 0x2e, 0x0e, 0x10, 0x3f, 0x2f, 0x31, 0x37, 0x55, 0x82,
@@ -136,11 +136,11 @@ var fileDescriptor_d570e3e37e5899c5 = []byte{
 	0xa5, 0x48, 0x30, 0x41, 0xe4, 0x60, 0x7c, 0x25, 0x6b, 0x2e, 0xce, 0x90, 0xfc, 0xec, 0xd4, 0x3c,
 	0xcf, 0xbc, 0xb4, 0x7c, 0x21, 0x09, 0x2e, 0xf6, 0xcc, 0xe2, 0xb0, 0xc4, 0x9c, 0xcc, 0x14, 0xb0,
 	0x19, 0x1c, 0x41, 0x30, 0xae, 0x90, 0x08, 0x17, 0x6b, 0x09, 0x48, 0x19, 0x54, 0x3f, 0x84, 0x63,
-	0x94, 0xc9, 0xc5, 0x1c, 0x9c, 0x58, 0x29, 0xa4, 0xcb, 0xc5, 0xe3, 0x58, 0x5a, 0x92, 0x91, 0x9a,
-	0x57, 0x92, 0x99, 0x9c, 0x58, 0x92, 0x2a, 0xc4, 0xa5, 0x07, 0x76, 0x26, 0xc8, 0x5d, 0x52, 0xfc,
-	0x10, 0x36, 0xdc, 0x0e, 0x25, 0x06, 0x21, 0x63, 0x2e, 0x5e, 0xb0, 0xa1, 0x89, 0x25, 0xa9, 0x60,
-	0x61, 0x21, 0x74, 0x35, 0x58, 0x34, 0x25, 0xb1, 0x81, 0x3d, 0x6d, 0x0c, 0x08, 0x00, 0x00, 0xff,
-	0xff, 0xd8, 0xfe, 0x51, 0x1b, 0x08, 0x01, 0x00, 0x00,
+	0x54, 0xc8, 0xc5, 0x0d, 0xb2, 0x3c, 0x38, 0xb5, 0xa8, 0x2c, 0x33, 0x39, 0x55, 0x48, 0x97, 0x8b,
+	0xc7, 0xb1, 0xb4, 0x24, 0x23, 0x35, 0xaf, 0x24, 0x33, 0x39, 0xb1, 0x24, 0x55, 0x88, 0x4b, 0x0f,
+	0xec, 0x5c, 0x90, 0x12, 0x29, 0x7e, 0x08, 0x1b, 0x6e, 0x97, 0x12, 0x83, 0x90, 0x31, 0x17, 0x2f,
+	0xd8, 0xf0, 0xc4, 0x92, 0x54, 0xb0, 0xb0, 0x10, 0xba, 0x1a, 0x2c, 0x9a, 0x92, 0xd8, 0xc0, 0x9e,
+	0x37, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x46, 0xeb, 0xb4, 0x16, 0x10, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -148,33 +148,33 @@ var _ context.Context
 var _ client.Option
 var _ server.Option
 
-// Client API for Say service
+// Client API for UserService service
 
-type SayClient interface {
+type UserServiceClient interface {
 	Authenticate(ctx context.Context, in *User, opts ...client.CallOption) (*TokenInfo, error)
 	ValidateToken(ctx context.Context, in *TokenInfo, opts ...client.CallOption) (*TokenInfo, error)
 }
 
-type sayClient struct {
+type userServiceClient struct {
 	c           client.Client
 	serviceName string
 }
 
-func NewSayClient(serviceName string, c client.Client) SayClient {
+func NewUserServiceClient(serviceName string, c client.Client) UserServiceClient {
 	if c == nil {
 		c = client.NewClient()
 	}
 	if len(serviceName) == 0 {
 		serviceName = "user"
 	}
-	return &sayClient{
+	return &userServiceClient{
 		c:           c,
 		serviceName: serviceName,
 	}
 }
 
-func (c *sayClient) Authenticate(ctx context.Context, in *User, opts ...client.CallOption) (*TokenInfo, error) {
-	req := c.c.NewRequest(c.serviceName, "Say.Authenticate", in)
+func (c *userServiceClient) Authenticate(ctx context.Context, in *User, opts ...client.CallOption) (*TokenInfo, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.Authenticate", in)
 	out := new(TokenInfo)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -183,8 +183,8 @@ func (c *sayClient) Authenticate(ctx context.Context, in *User, opts ...client.C
 	return out, nil
 }
 
-func (c *sayClient) ValidateToken(ctx context.Context, in *TokenInfo, opts ...client.CallOption) (*TokenInfo, error) {
-	req := c.c.NewRequest(c.serviceName, "Say.ValidateToken", in)
+func (c *userServiceClient) ValidateToken(ctx context.Context, in *TokenInfo, opts ...client.CallOption) (*TokenInfo, error) {
+	req := c.c.NewRequest(c.serviceName, "UserService.ValidateToken", in)
 	out := new(TokenInfo)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -193,25 +193,25 @@ func (c *sayClient) ValidateToken(ctx context.Context, in *TokenInfo, opts ...cl
 	return out, nil
 }
 
-// Server API for Say service
+// Server API for UserService service
 
-type SayHandler interface {
+type UserServiceHandler interface {
 	Authenticate(context.Context, *User, *TokenInfo) error
 	ValidateToken(context.Context, *TokenInfo, *TokenInfo) error
 }
 
-func RegisterSayHandler(s server.Server, hdlr SayHandler, opts ...server.HandlerOption) {
-	s.Handle(s.NewHandler(&Say{hdlr}, opts...))
+func RegisterUserServiceHandler(s server.Server, hdlr UserServiceHandler, opts ...server.HandlerOption) {
+	s.Handle(s.NewHandler(&UserService{hdlr}, opts...))
 }
 
-type Say struct {
-	SayHandler
+type UserService struct {
+	UserServiceHandler
 }
 
-func (h *Say) Authenticate(ctx context.Context, in *User, out *TokenInfo) error {
-	return h.SayHandler.Authenticate(ctx, in, out)
+func (h *UserService) Authenticate(ctx context.Context, in *User, out *TokenInfo) error {
+	return h.UserServiceHandler.Authenticate(ctx, in, out)
 }
 
-func (h *Say) ValidateToken(ctx context.Context, in *TokenInfo, out *TokenInfo) error {
-	return h.SayHandler.ValidateToken(ctx, in, out)
+func (h *UserService) ValidateToken(ctx context.Context, in *TokenInfo, out *TokenInfo) error {
+	return h.UserServiceHandler.ValidateToken(ctx, in, out)
 }

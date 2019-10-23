@@ -7,7 +7,7 @@ import (
 )
 
 func main () {
-	service := micro.NewService(micro.Name("service.user"))
+	service := micro.NewService(micro.Name("walkie.service.user"))
 	service.Init()
 	userPB.RegisterUserServiceHandler(service.Server(), &Handler{})
 	if err := service.Run(); err != nil {
